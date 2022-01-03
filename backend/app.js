@@ -22,8 +22,6 @@ mongoose.connect(process.env.MONGODB_DATABASE_URI).then(success => {
     console.log("Fail to connect....")
 })
 
-// use this on playground
-// app.use(cors())
 
 // use this on client 
 app.use(cors({
