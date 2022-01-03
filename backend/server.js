@@ -62,7 +62,7 @@ const StartServer = async () => {
 
             // in react or client, make sure corse is this
             cors: {
-                origin: 'http://localhost:3000',
+                origin: '/',
                 credentials: true
             }
         })

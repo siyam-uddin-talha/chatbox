@@ -4,14 +4,11 @@ import App from './App';
 import "./style/app.css"
 import { ApolloClient, InMemoryCache, ApolloProvider, HttpLink, } from '@apollo/client'
 import { BrowserRouter as Router } from 'react-router-dom'
-// import { WebSocketLink } from "@apollo/client/link/ws"
 import Context from './components/Provider/Context'
 
 
-// import { getMainDefinition } from '@apollo/client/utilities'
-
 const httpLink = new HttpLink({
-  uri: 'http://localhost:5000/graphql', credentials: 'include',
+  uri: '/', credentials: 'include',
 
 
 })

@@ -28,8 +28,6 @@ mongoose.connect(process.env.MONGODB_DATABASE_URI).then(success => {
 // use this on client 
 app.use(cors({
     credentials: true,
-    origin: 'http://localhost:3000',
-    // uri: 'http://localhost:5000/graphql'
 }))
 
 app.use(express.json({ limit: '50mb' }))
