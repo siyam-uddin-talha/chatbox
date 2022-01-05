@@ -1,3 +1,9 @@
+/*
+author: Arnob Islam
+date: '01-06-22' 
+description: 'This application is a part of facebook-messenger backend, which is deploy in heroku and the client side is delply in netlify'
+*/
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
@@ -8,8 +14,7 @@ import Context from './components/Provider/Context'
 
 
 const httpLink = new HttpLink({
-  uri: '/', credentials: 'include',
-
+  uri: 'https://mr-messenger.herokuapp.com/graphql', credentials: 'include',
 
 })
 

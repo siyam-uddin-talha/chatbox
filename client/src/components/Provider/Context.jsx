@@ -5,7 +5,7 @@ import io from "socket.io-client"
 const Context = createContext()
 
 
-const socket = io.connect("/")
+const socket = io.connect("https://mr-messenger.herokuapp.com/")
 
 const AppContext = ({ children }) => {
 

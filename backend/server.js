@@ -18,11 +18,19 @@ const { ApolloServerPluginLandingPageDisabled } = require('apollo-server-core');
 
 const PORT = process.env.PORT || 5000;
 
+/*
+
+ the font-end side is deploy staticly with =>  ******** "Netlify" *********
+
+ side link 
+
+*/
+
 // render the client
-app.use("*", express.static(path.join(__dirname, '../client/build')))
-app.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, '../client/build/index.html'))
-})
+// app.use(express.static(path.join(__dirname, '../client/build')))
+// app.get("*", (req, res) => {
+//     res.sendFile(path.resolve(__dirname, '../client/build/index.html'))
+// })
 
 
 const StartServer = async () => {
@@ -57,12 +65,9 @@ const StartServer = async () => {
         await server.start()
         server.applyMiddleware({
             app,
-            // in playground make sure corse is false
-            // cors: false,
 
-            // in react or client, make sure corse is this
             cors: {
-                origin: '/',
+                origin: 'https://mr-facebook-messenger.netlify.app/',
                 credentials: true
             }
         })
