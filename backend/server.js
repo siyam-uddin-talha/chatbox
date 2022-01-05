@@ -3,7 +3,7 @@ author: Arnob Islam
 date: '24-12-21' 
 description: ''
 */
-const express = require('express');
+
 const app = require("./app")
 const { ApolloServer, } = require('apollo-server-express');
 const { createServer } = require('http')
@@ -22,7 +22,7 @@ const PORT = process.env.PORT || 5000;
 
  the font-end side is deploy staticly with =>  ******** "Netlify" *********
 
- side link 
+ side link : https://mr-facebook-messenger.netlify.app
 
 */
 
@@ -67,7 +67,7 @@ const StartServer = async () => {
             app,
 
             cors: {
-                origin: 'https://mr-facebook-messenger.netlify.app/',
+                origin: 'https://mr-facebook-messenger.netlify.app',
                 credentials: true
             }
         })

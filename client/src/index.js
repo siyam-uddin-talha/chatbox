@@ -15,7 +15,6 @@ import Context from './components/Provider/Context'
 
 const httpLink = new HttpLink({
   uri: 'https://mr-messenger.herokuapp.com/graphql', credentials: 'include',
-
 })
 
 
