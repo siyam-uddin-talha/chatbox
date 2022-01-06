@@ -103,7 +103,8 @@ const ForgetPassword = async (_, { email, }, { req }) => {
 
         await response.save({ validateBeforeSave: true })
 
-        const resetLink = `${req.protocol}://${req.get('host')}/user/reset-password/${resetToken}`
+        const resetLink = `https://mr-facebook-messenger.netlify.app/user/reset-password/${resetToken}`
+        // const resetLink = `${req.protocol}://${req.get('host')}/user/reset-password/${resetToken}`
 
         await SendEmail({
             email: response.email,
