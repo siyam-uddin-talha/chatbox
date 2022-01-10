@@ -16,8 +16,8 @@ const SEND_EMAIL = async ({ email, subject, message, html }) => {
             secure: false,
             requireTLS: true,
             auth: {
-                user: 'mr.lighthouse101@gmail.com',
-                pass: 'itsmrlighthouse'
+                user: process.env.EMAIL_USER_AUTH,
+                pass: process.env.PASSWORD_USER_AUTH
             }
         });
 
