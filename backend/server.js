@@ -17,13 +17,6 @@ const { ApolloServerPluginLandingPageDisabled } = require("apollo-server-core");
 
 const PORT = process.env.PORT || 8080;
 
-// render the client
-
-app.use(express.static(path.join(__dirname, "./client/build")));
-app.get("*", (req, res) => {
-  res.sendFile(path.resolve(__dirname, "./client/build/index.html"));
-});
-
 const StartServer = async () => {
   try {
     const httpServer = createServer(app);
