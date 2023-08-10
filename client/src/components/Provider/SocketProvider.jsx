@@ -1,22 +1,19 @@
-import { useEffect } from 'react'
-import io from "socket.io-client"
+import { useEffect } from "react";
+import io from "socket.io-client";
 
-
-const socket = io.connect("/")
+const socket = io.connect(process.env.REACT_APP_SERVER_URL);
 
 const SocketIoProvider = () => {
+  useEffect(() => {
+    // return () => {
+    //     socket.close();
+    // }
+    return () => {
+      socket.disconnect();
+    };
+  }, []);
 
-    useEffect(() => {
-        // return () => {
-        //     socket.close();
-        // }
-        return () => {
-            socket.disconnect();
-        }
-    }, [])
+  return { socket };
+};
 
-    return { socket }
-}
-
-
-export default SocketIoProvider
+export default SocketIoProvider;
