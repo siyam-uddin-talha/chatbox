@@ -9,7 +9,6 @@ const { ApolloServer } = require("apollo-server-express");
 const { createServer } = require("http");
 const { makeExecutableSchema } = require("@graphql-tools/schema");
 const jwt = require("jsonwebtoken");
-const path = require("path");
 const socket = require("./controllers/Socket.io");
 const typeDefs = require("./Graphql/TypeDefs/app");
 const resolvers = require("./Graphql/Resolvers/app");
