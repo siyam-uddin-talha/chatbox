@@ -15,21 +15,14 @@ const typeDefs = require("./Graphql/TypeDefs/app");
 const resolvers = require("./Graphql/Resolvers/app");
 const { ApolloServerPluginLandingPageDisabled } = require("apollo-server-core");
 
-const PORT = process.env.PORT || 5000;
-
-/*
-
- the font-end side is deploy staticly with =>  ******** "Netlify" *********
-
- side link : https://mr-facebook-messenger.netlify.app
-
-*/
+const PORT = process.env.PORT || 8080;
 
 // render the client
-// app.use(express.static(path.join(__dirname, '../client/build')))
-// app.get("*", (req, res) => {
-//     res.sendFile(path.resolve(__dirname, '../client/build/index.html'))
-// })
+
+app.use(express.static(path.join(__dirname, "./client/build")));
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "./client/build/index.html"));
+});
 
 const StartServer = async () => {
   try {
