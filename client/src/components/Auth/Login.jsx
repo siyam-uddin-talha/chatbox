@@ -33,8 +33,10 @@ export default function SignIn() {
     if (!email || !password) {
       setMessage({
         open: true,
-        message: "please fill input",
+        message: "Please fill the input",
       });
+
+      return;
     }
     try {
       publishLogin({
@@ -46,7 +48,7 @@ export default function SignIn() {
     } catch (error) {
       setMessage({
         open: true,
-        message: "Error try to refresh",
+        message: error.message,
       });
     }
   };
