@@ -55,13 +55,20 @@ export default function AppHeader({ socket }) {
         >
           <Toolbar>
             <Box className="avatar_container">
-              <Tooltip title="My prfile" arrow>
+              <Tooltip title="My profile" arrow>
                 <Link to={`/profile/${user._id}`}>
-                  <Avatar
-                    alt={`${user.firstName} ${user.lastName}`}
-                    src={user.photoUrl}
-                    className="user_avater"
-                  />
+                  {user.photoUrl ? (
+                    <Avatar
+                      alt={`${user.firstName} ${user.lastName}`}
+                      src={user.photoUrl}
+                      className="user_avater"
+                    />
+                  ) : (
+                    <Avatar
+                      alt={`${user.firstName} ${user.lastName}`}
+                      className="user_avater"
+                    />
+                  )}
                 </Link>
               </Tooltip>
             </Box>
@@ -75,17 +82,21 @@ export default function AppHeader({ socket }) {
             </Typography>
             <Box sx={{ flexGrow: 1 }} />
             <Box sx={{ mr: 2 }}>
-              <IconButton
-                onClick={() => setOpenToAddNewConvercation(true)}
-                className="__BTN_NA"
-              >
-                <AddOutlinedIcon />
-              </IconButton>
+              <Tooltip title="Add Friend" arrow>
+                <IconButton
+                  onClick={() => setOpenToAddNewConvercation(true)}
+                  className="__BTN_NA"
+                >
+                  <AddOutlinedIcon />
+                </IconButton>
+              </Tooltip>
             </Box>
             <Box>
-              <IconButton onClick={HandleLogOut} className="__BTN_NA">
-                <LogoutOutlinedIcon />
-              </IconButton>
+              <Tooltip title="Logout" arrow>
+                <IconButton onClick={HandleLogOut} className="__BTN_NA">
+                  <LogoutOutlinedIcon />
+                </IconButton>
+              </Tooltip>
             </Box>
           </Toolbar>
         </AppBar>
@@ -125,12 +136,17 @@ function NewConvercationDialog({
   };
 
   const HandleCreateNewConversation = async () => {
-    setOpen(false);
-    await CreateNewConvercation({
-      variables: {
-        email,
-      },
-    });
+    try {
+      if (!email) {
+        return;
+      }
+      setOpen(false);
+      await CreateNewConvercation({
+        variables: {
+          email,
+        },
+      });
+    } catch (error) {}
   };
 
   React.useEffect(() => {
@@ -158,30 +174,34 @@ function NewConvercationDialog({
   return (
     <div>
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Add new conversation</DialogTitle>
+        <DialogTitle>Add friend</DialogTitle>
         <DialogContent>
-          <DialogContentText>
-            To add new conversation, please input <b>Email </b> to{" "}
+          <DialogContentText sx={{ mb: 1 }}>
+            To add new conversation, please enter <b>Email address</b> to{" "}
             <b>
-              <i>Invite</i>
-            </b>{" "}
-            new person
+              <i>Add </i>
+            </b>
+            your friend.
           </DialogContentText>
           <TextField
             autoFocus
             margin="dense"
             id="email"
-            label="Email Address"
+            label="Email address"
             type="email"
             fullWidth
-            variant="standard"
+            variant="outlined"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={HandleCreateNewConversation}>Add</Button>
+          <Button onClick={handleClose} color="error">
+            Cancel
+          </Button>
+          <Button onClick={HandleCreateNewConversation} variant="contained">
+            Add
+          </Button>
         </DialogActions>
       </Dialog>
 

@@ -2,34 +2,26 @@
 * {
   margin: 0;
   padding: 0;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 body {
   background: #0c1a28;
   margin: 0;
   padding: 0;
-  font-family: "Montserrat", sans-serif;
-  font-family: "Source Sans Pro", sans-serif;
+  font-family: "Montserrat", sans-serif !important;
 }
 
 .j-c-c {
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  justify-content: center;
 }
 
 .a-i-c {
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  align-items: center;
 }
 
 .j-c-s-b {
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  justify-content: space-between;
 }
 
 .t-d-n {
@@ -37,36 +29,27 @@ body {
 }
 
 .flex_column {
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  flex-direction: column;
 }
 
 .f_shink_0 {
-  -ms-flex-negative: 0;
-      flex-shrink: 0;
+  flex-shrink: 0;
 }
 
 .f_shink_1 {
-  -ms-flex-negative: 1;
-      flex-shrink: 1;
+  flex-shrink: 1;
 }
 
 .f_basis_0 {
-  -ms-flex-preferred-size: 0;
-      flex-basis: 0;
+  flex-basis: 0;
 }
 
 .f_basis_50 {
-  -ms-flex-preferred-size: 50px;
-      flex-basis: 50px;
+  flex-basis: 50px;
 }
 
 .flex_grow_1 {
-  -webkit-box-flex: 1;
-      -ms-flex-positive: 1;
-          flex-grow: 1;
+  flex-grow: 1;
 }
 
 .ofxh {
@@ -86,8 +69,6 @@ body {
 }
 
 .display_flex {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
 }
 
@@ -104,7 +85,7 @@ body {
 }
 
 .c-white {
-  color: #f1f1f1;
+  color: rgb(241, 241, 241);
 }
 
 /* 
@@ -121,25 +102,23 @@ body {
 */
 @media (max-width: 920px) {
   .navigator_drawer {
-    width: calc(100px + 1px) !important;
+    width: 101px !important;
   }
   .navigator_drawer > div {
-    width: calc(100px + 1px) !important;
+    width: 101px !important;
   }
 }
-
 @media (max-width: 800px) {
   .navigator_drawer {
-    width: calc(72px + 1px) !important;
+    width: 73px !important;
   }
   .navigator_drawer > div {
-    width: calc(72px + 1px) !important;
+    width: 73px !important;
   }
   .user_mesages_name {
     display: none !important;
   }
 }
-
 @media (max-width: 576px) {
   #navigator_messenger {
     width: 100% !important;
@@ -151,8 +130,6 @@ body {
     width: 100% !important;
   }
   ._mobile_navigator__ {
-    display: -webkit-box !important;
-    display: -ms-flexbox !important;
     display: flex !important;
     visibility: visible !important;
     opacity: 1 !important;
@@ -173,7 +150,6 @@ body {
     min-height: calc(100vh - 65px);
   }
 }
-
 .mobile_messenger_root .conversation_playground {
   min-height: calc(100vh - 65px);
 }
@@ -192,10 +168,9 @@ body {
 .navigator_drawer > div {
   background: #060714;
   color: white;
-  border-right-color: #464969;
+  border-right-color: rgb(70, 73, 105);
   position: initial !important;
 }
-
 .navigator_drawer > div svg {
   color: white;
 }
@@ -204,7 +179,6 @@ body {
   color: white !important;
   background: #34404c !important;
 }
-
 .__BTN_NA:hover {
   background: #3d4b58 !important;
 }
@@ -212,11 +186,9 @@ body {
 .navigator_drawer hr {
   background: #0c1a28;
 }
-
 .navigator_drawer .Mui-selected {
   background: #425161 !important;
 }
-
 .navigator_drawer a {
   color: white;
 }
@@ -246,24 +218,16 @@ body {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
-
 .mobile_active_user_list::-webkit-scrollbar {
   display: none;
 }
 
 .__klsa_form {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  align-items: center;
+  justify-content: center;
   width: 100%;
 }
-
 .__klsa_form input {
   border: none;
   outline: none;
@@ -279,7 +243,6 @@ body {
   border-top-right-radius: 1rem;
   border-bottom-right-radius: 1rem;
 }
-
 .input_fild_box .write_message_input {
   font-family: "Source Sans Pro";
   letter-spacing: 1px;
@@ -287,11 +250,8 @@ body {
 }
 
 .message__ {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
 }
-
 .message__ ._SP__Mes_ {
   background: linear-gradient(45deg, #8f4ae9, #540dff);
   padding: 0.5rem 0.8rem;
@@ -304,11 +264,4 @@ body {
   -o-object-fit: cover;
      object-fit: cover;
   border-radius: 50%;
-}
-
-.cc_from input {
-  color: white !important;
-  background: #1e364e !important;
-  padding: 0.5rem 1rem;
-}
-/*# sourceMappingURL=app.css.map */
+}/*# sourceMappingURL=app.css.map */

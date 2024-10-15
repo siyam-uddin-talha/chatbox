@@ -99,7 +99,11 @@ const NavigatorList = ({ data }) => {
               sx={{ borderRadius: ".77rem" }}
             >
               <ListItemIcon sx={{ color: "#15283c" }}>
-                <Avatar alt={`${e.friendName}`} src={e.photoUrl} />
+                {e.photoUrl ? (
+                  <Avatar alt={`${e.friendName}`} src={e.photoUrl} />
+                ) : (
+                  <Avatar alt={`${e.friendName}`} />
+                )}
               </ListItemIcon>
 
               <ListItemText
@@ -120,7 +124,11 @@ const NavigatorList = ({ data }) => {
               sx={{ borderRadius: ".77rem" }}
             >
               <ListItemIcon sx={{ color: "#15283c" }}>
-                <Avatar alt={`${e.friendName}`} src={e.photoUrl} />
+                {e.photoUrl ? (
+                  <Avatar alt={`${e.friendName}`} src={e.photoUrl} />
+                ) : (
+                  <Avatar alt={`${e.friendName}`} />
+                )}
               </ListItemIcon>
 
               <ListItemText

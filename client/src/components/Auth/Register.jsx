@@ -16,6 +16,8 @@ import { useMutation } from "@apollo/client";
 import { UseGlobalContext } from "../Provider/Context";
 import { styled } from "@mui/material/styles";
 import BackDropLoading from "../SingleComponent/BackDropLoading";
+import OneTapJoin from "./OneTapJoin";
+import PermMediaOutlinedIcon from "@mui/icons-material/PermMediaOutlined";
 
 const Input = styled("input")({
   display: "none",
@@ -44,14 +46,14 @@ export default function SignUp() {
     const email = data.get("email");
     const password = data.get("password");
 
-    if (!firstName || !lastName || !email || !password || !photoUrl) {
+    if (!firstName || !lastName || !email || !password) {
       setMessage({
         open: true,
         message: "Please fill the input",
       });
       return;
     }
-    if (!validator.isEmail(email) || email.split("@")[0].length < 5) {
+    if (!validator.isEmail(email) || email.split("@")[0].length < 4) {
       setMessage({
         open: true,
         message: "Please enter a valid email",
@@ -80,7 +82,7 @@ export default function SignUp() {
     } catch (error) {
       setMessage({
         open: true,
-        message: "Error try to refresh",
+        message: error.message,
       });
     }
   };
@@ -124,114 +126,111 @@ export default function SignUp() {
   }, [data, error, navigate, setUser]);
 
   return (
-    <Container component="main" maxWidth="xs">
+    <Container component="main" maxWidth="sm">
       <Box
-        sx={{
-          marginTop: 8,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-        }}
+        component="form"
+        className="cc_from"
+        onSubmit={handleSubmit}
+        noValidate
       >
-        <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-          <LockOutlinedIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5" className="c-white">
-          Sign up
-        </Typography>
-        <Box
-          component="form"
-          className="cc_from"
-          noValidate
-          onSubmit={handleSubmit}
-          sx={{ mt: 3 }}
-        >
-          <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                autoComplete="given-name"
-                name="firstName"
-                required
-                fullWidth
-                id="firstName"
-                label="First Name"
-                autoFocus
-                variant="standard"
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                required
-                fullWidth
-                id="lastName"
-                label="Last Name"
-                name="lastName"
-                autoComplete="family-name"
-                variant="standard"
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                required
-                fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-                autoComplete="email"
-                variant="standard"
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                required
-                fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                id="password"
-                autoComplete="new-password"
-                variant="standard"
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <label htmlFor="contained-button-file">
-                <Input
-                  accept="image/*"
-                  id="contained-button-file"
-                  type="file"
-                  name="photoUrl"
-                  onChange={HandleUploadFile}
-                />
-                <Button
-                  fullWidth
-                  variant="outlined"
-                  component="span"
-                  style={{
-                    border: "1px solid dashed",
-                  }}
-                >
-                  Upload
-                </Button>
-              </label>
-            </Grid>
+        <Grid container spacing={2}>
+          <Grid item xs={12}>
+            <Box
+              sx={{
+                marginTop: 8,
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
+            >
+              <Avatar sx={{ bgcolor: "secondary.main" }}>
+                <LockOutlinedIcon />
+              </Avatar>
+              <Typography component="h1" variant="h5" className="c-white">
+                Sign up
+              </Typography>
+            </Box>
           </Grid>
-          <Button
-            type="submit"
-            fullWidth
-            variant="outlined"
-            sx={{ mt: 3, mb: 2 }}
-          >
-            Sign Up
-          </Button>
-          <Grid container justifyContent="flex-end">
-            <Grid item>
-              <Link to="/user/login" className="c-white">
-                Already have an account? Sign in
-              </Link>
-            </Grid>
+          <Grid item xs={12} lg={6}>
+            <TextField
+              required
+              fullWidth
+              id="firstName"
+              label="First name"
+              name="firstName"
+              autoComplete="firstName"
+              autoFocus
+              variant="outlined"
+            />
           </Grid>
-        </Box>
+          <Grid item xs={12} lg={6}>
+            <TextField
+              required
+              fullWidth
+              id="lastName"
+              label="Last name"
+              name="lastName"
+              autoComplete="lastName"
+              variant="outlined"
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              required
+              fullWidth
+              id="email"
+              label="Email address"
+              name="email"
+              autoComplete="email"
+              variant="outlined"
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              required
+              fullWidth
+              name="password"
+              label="Password"
+              type="password"
+              id="password"
+              variant="outlined"
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <label htmlFor="contained-button-file">
+              <Input
+                accept="image/*"
+                id="contained-button-file"
+                type="file"
+                name="photoUrl"
+                onChange={HandleUploadFile}
+              />
+              <Button
+                fullWidth
+                variant="outlined"
+                component="span"
+                startIcon={<PermMediaOutlinedIcon />}
+              >
+                Upload
+              </Button>
+            </label>
+          </Grid>
+          <Grid item xs={12}>
+            <Button type="submit" fullWidth variant="contained">
+              Sign up
+            </Button>
+          </Grid>
+
+          <OneTapJoin />
+
+          <Grid item>
+            <Link to="/user/login" variant="body2" className="c-white">
+              Already have an account? Sign in
+            </Link>
+          </Grid>
+        </Grid>
       </Box>
+
       <ShowSmallAlert
         open={message.open}
         setClose={setMessage}

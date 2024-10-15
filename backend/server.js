@@ -20,10 +20,10 @@ const StartServer = async () => {
   try {
     const httpServer = createServer(app);
 
-    const getUser = (token) => {
+    const getUser = (chat_token) => {
       try {
-        if (token) {
-          return jwt.verify(token, process.env.JWT_SECRET_KEY);
+        if (chat_token) {
+          return jwt.verify(chat_token, process.env.JWT_SECRET_KEY);
         }
         return null;
       } catch (err) {
@@ -36,8 +36,9 @@ const StartServer = async () => {
     const server = new ApolloServer({
       schema,
       context: ({ req, res }) => {
-        const token = req.cookies.token || "";
-        const user = getUser(token);
+        const chat_token = req.cookies.chat_token || "";
+
+        const user = getUser(chat_token);
         return { req, res, user };
       },
       plugins: [ApolloServerPluginLandingPageDisabled()],

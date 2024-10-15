@@ -197,7 +197,11 @@ export const MobileActiveUser = () => {
                   anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
                   variant="dot"
                 >
-                  <Avatar alt="Remy Sharp" src={e.photoUrl} />
+                  {e.photoUrl ? (
+                    <Avatar alt={`${e.friendName}`} src={e.photoUrl} />
+                  ) : (
+                    <Avatar alt={`${e.friendName}`} />
+                  )}
                 </StyledBadge>
               </ListItemIcon>
             </ListItemButton>

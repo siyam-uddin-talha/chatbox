@@ -11,6 +11,8 @@ import { useMutation } from "@apollo/client";
 import BackDropLoading from "../SingleComponent/BackDropLoading";
 import { UseGlobalContext } from "../Provider/Context";
 import { styled } from "@mui/material/styles";
+import PermMediaOutlinedIcon from "@mui/icons-material/PermMediaOutlined";
+import { BackButtonHeader } from "../../shared/BackButtonHeader";
 
 const Input = styled("input")({
   display: "none",
@@ -34,54 +36,6 @@ export default function UserProfile() {
     photoUrl: "",
     email: "",
   });
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    const { password, firstName, lastName, photoUrl } = value;
-    if (!firstName || !lastName || !photoUrl) {
-      setMessage({
-        open: true,
-        message: "please fill input",
-      });
-      return;
-    }
-    if (password && password.length < 8) {
-      setMessage({
-        open: true,
-        message: "Your Password should be more then 8",
-      });
-      return;
-    }
-    try {
-      if (password) {
-        updateProfile({
-          variables: {
-            input: {
-              password,
-              firstName,
-              lastName,
-              photoUrl,
-            },
-          },
-        });
-        return;
-      }
-      updateProfile({
-        variables: {
-          input: {
-            firstName,
-            lastName,
-            photoUrl,
-          },
-        },
-      });
-    } catch (error) {
-      setMessage({
-        open: true,
-        message: "Error try to refresh",
-      });
-    }
-  };
 
   React.useEffect(() => {
     if (user) {
@@ -115,10 +69,59 @@ export default function UserProfile() {
     if (error) {
       setMessage({
         open: true,
-        message: `"Error try to refresh"`,
+        message: error.message,
       });
     }
   }, [data, error, setUser]);
+
+  const handleSubmit = async (event) => {
+    try {
+      event.preventDefault();
+      const { password, firstName, lastName, photoUrl } = value;
+      if (!firstName || !lastName || !photoUrl) {
+        setMessage({
+          open: true,
+          message: "please fill input",
+        });
+        return;
+      }
+      if (password && password.length < 8) {
+        setMessage({
+          open: true,
+          message: "Your Password should be more then 8",
+        });
+        return;
+      }
+      if (password) {
+        await updateProfile({
+          variables: {
+            input: {
+              password,
+              firstName,
+              lastName,
+              photoUrl,
+            },
+          },
+        });
+        return;
+      }
+
+      await updateProfile({
+        variables: {
+          input: {
+            firstName,
+            lastName,
+            photoUrl,
+          },
+        },
+      });
+    } catch (error) {
+      setMessage({
+        open: true,
+        message: error.message,
+      });
+    }
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -146,114 +149,113 @@ export default function UserProfile() {
   };
 
   return (
-    <Container component="main" maxWidth="xs">
-      <Box
-        sx={{
-          marginTop: 8,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-        }}
-      >
-        <Typography component="h1" variant="h5">
-          Profile
-        </Typography>
-        <Box sx={{ m: 1, width: "6rem", height: "6rem" }}>
-          <img src={value.photoUrl} alt="user phtot" className="img_profile" />
-        </Box>
-
+    <>
+      <BackButtonHeader title={"Profile"} />
+      <Container component="main" maxWidth="xs">
         <Box
-          component="form"
-          className="update_profile_form cc_from"
-          onSubmit={handleSubmit}
-          sx={{ mt: 1 }}
+          sx={{
+            marginTop: 8,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
         >
-          <Grid container spacing={2}>
-            <Grid item xs={12}>
-              <TextField
-                autoComplete="given-name"
-                name="firstName"
-                fullWidth
-                id="firstName"
-                label="First Name"
-                autoFocus
-                variant="standard"
-                value={value.firstName}
-                onChange={handleChange}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                fullWidth
-                id="lastName"
-                label="Last Name"
-                name="lastName"
-                autoComplete="family-name"
-                variant="standard"
-                value={value.lastName}
-                onChange={handleChange}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                fullWidth
-                id="email"
-                label="Email"
-                name="email"
-                variant="standard"
-                value={value.email}
-                disabled
-              />
-            </Grid>
+          <Typography component="h1" variant="h5">
+            Profile
+          </Typography>
+          <Box sx={{ m: 2, width: "6rem", height: "6rem" }}>
+            <img src={value.photoUrl} alt="user" className="img_profile" />
+          </Box>
 
-            <Grid item xs={12}>
-              <TextField
-                fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                id="password"
-                autoComplete="new-password"
-                variant="standard"
-                value={value.password}
-                onChange={handleChange}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <label htmlFor="contained-button-file">
-                <Input
-                  accept="image/*"
-                  id="contained-button-file"
-                  type="file"
-                  name="photoUrl"
-                  onChange={HandleUploadFile}
-                />
-                <Button
+          <Box
+            component="form"
+            className="update_profile_form cc_from"
+            onSubmit={handleSubmit}
+            sx={{ mt: 1 }}
+          >
+            <Grid container spacing={2}>
+              <Grid item xs={12}>
+                <TextField
+                  name="firstName"
                   fullWidth
+                  id="firstName"
+                  label="First name"
+                  autoFocus
                   variant="outlined"
-                  sx={{
-                    border: "1px dashed",
-                  }}
-                  component="span"
-                >
-                  Upload
-                </Button>
-              </label>
+                  value={value.firstName}
+                  onChange={handleChange}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  fullWidth
+                  id="lastName"
+                  label="Last name"
+                  name="lastName"
+                  variant="outlined"
+                  value={value.lastName}
+                  onChange={handleChange}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  fullWidth
+                  id="email"
+                  label="Email address"
+                  name="email"
+                  variant="outlined"
+                  value={value.email}
+                  disabled
+                />
+              </Grid>
+
+              <Grid item xs={12}>
+                <TextField
+                  fullWidth
+                  name="password"
+                  label="Password"
+                  type="password"
+                  id="password"
+                  autoComplete="new-password"
+                  variant="outlined"
+                  value={value.password}
+                  onChange={handleChange}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <label htmlFor="contained-button-file">
+                  <Input
+                    accept="image/*"
+                    id="contained-button-file"
+                    type="file"
+                    name="photoUrl"
+                    onChange={HandleUploadFile}
+                  />
+                  <Button
+                    fullWidth
+                    variant="outlined"
+                    component="span"
+                    startIcon={<PermMediaOutlinedIcon />}
+                  >
+                    Upload
+                  </Button>
+                </label>
+              </Grid>
             </Grid>
-          </Grid>
-          <Box sx={{ textAlign: "end" }}>
-            <Button type="submit" variant="outlined" sx={{ mt: 3, mb: 2 }}>
-              Update
-            </Button>
+            <Box sx={{ textAlign: "end" }}>
+              <Button type="submit" variant="contained" sx={{ mt: 3, mb: 2 }}>
+                Update
+              </Button>
+            </Box>
           </Box>
         </Box>
-      </Box>
-      <ShowSmallAlert
-        open={message.open}
-        setClose={setMessage}
-        message={message.message}
-      />
-      {loading && <BackDropLoading />}
-    </Container>
+        <ShowSmallAlert
+          open={message.open}
+          setClose={setMessage}
+          message={message.message}
+        />
+        {loading && <BackDropLoading />}
+      </Container>
+    </>
   );
 }

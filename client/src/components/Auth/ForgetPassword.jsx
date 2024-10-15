@@ -28,9 +28,15 @@ export default function ForgetPassword() {
     const email = fromData.get("email");
 
     try {
-      if (!email) return;
+      if (!email) {
+        setMessage({
+          open: true,
+          message: "Email is required",
+        });
+        return;
+      }
       // setBackDropLoading(true)
-      SendResetToken({
+      await SendResetToken({
         variables: {
           email,
         },
@@ -39,7 +45,7 @@ export default function ForgetPassword() {
       // setBackDropLoading(false)
       setMessage({
         open: true,
-        message: "something error! Refresh the page",
+        message: error.message,
       });
     }
   };
@@ -67,7 +73,7 @@ export default function ForgetPassword() {
   }, [data, error]);
 
   return (
-    <Container component="main" maxWidth="xs">
+    <Container component="main" maxWidth="sm">
       <Box
         sx={{
           marginTop: 8,
@@ -80,7 +86,7 @@ export default function ForgetPassword() {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5" className="c-white">
-          Forget password
+          Forgot password
         </Typography>
         <Box
           component="form"
@@ -90,20 +96,19 @@ export default function ForgetPassword() {
         >
           <TextField
             margin="normal"
-            required
             fullWidth
             id="email"
             label="Email Address"
             name="email"
             autoComplete="email"
             autoFocus
-            variant="standard"
+            variant="outlined"
           />
 
           <Button
             type="submit"
             fullWidth
-            variant="outlined"
+            variant="contained"
             sx={{ mt: 3, mb: 2 }}
           >
             Reset password

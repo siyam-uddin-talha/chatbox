@@ -14,6 +14,7 @@ import { LOGIN_TYPE } from "../../Graphql/Mutations/LoginType";
 import { useMutation } from "@apollo/client";
 import BackDropLoading from "../SingleComponent/BackDropLoading";
 import { UseGlobalContext } from "../Provider/Context";
+import OneTapJoin from "./OneTapJoin";
 
 export default function SignIn() {
   const navigate = useNavigate();
@@ -39,7 +40,7 @@ export default function SignIn() {
       return;
     }
     try {
-      publishLogin({
+      await publishLogin({
         variables: {
           email,
           password,
@@ -82,63 +83,65 @@ export default function SignIn() {
   }, [data, error, navigate, setUser]);
 
   return (
-    <Container component="main" maxWidth="xs">
-      <Box
-        sx={{
-          marginTop: 8,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-        }}
-      >
-        <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-          <LockOutlinedIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5" className="c-white">
-          Sign in
-        </Typography>
+    <Container component="main" maxWidth="sm">
+      <Box>
         <Box
           component="form"
           className="cc_from"
           onSubmit={handleSubmit}
           noValidate
-          sx={{ mt: 1 }}
         >
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            id="email"
-            label="Email Address"
-            name="email"
-            autoComplete="email"
-            autoFocus
-            variant="standard"
-          />
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            label="Password"
-            type="password"
-            id="password"
-            autoComplete="current-password"
-            variant="standard"
-          />
+          <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <Box
+                sx={{
+                  marginTop: 8,
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                }}
+              >
+                <Avatar sx={{ bgcolor: "secondary.main" }}>
+                  <LockOutlinedIcon />
+                </Avatar>
+                <Typography component="h1" variant="h5" className="c-white">
+                  Sign in
+                </Typography>
+              </Box>
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                required
+                fullWidth
+                id="email"
+                label="Email address"
+                name="email"
+                autoComplete="email"
+                autoFocus
+                variant="outlined"
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                required
+                fullWidth
+                name="password"
+                label="Password"
+                type="password"
+                id="password"
+                variant="outlined"
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <Button type="submit" fullWidth variant="contained">
+                Sign in
+              </Button>
+            </Grid>
 
-          <Button
-            type="submit"
-            fullWidth
-            variant="outlined"
-            sx={{ mt: 3, mb: 2 }}
-          >
-            Sign In
-          </Button>
-          <Grid container>
-            <Grid item xs>
+            <OneTapJoin />
+            <Grid item xs={12}>
               <Link
-                to="/user/forget-password"
+                to="/user/forgot-password"
                 variant="body2"
                 className="c-white"
               >

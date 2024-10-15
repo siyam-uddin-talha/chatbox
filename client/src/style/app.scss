@@ -13,8 +13,7 @@ body {
   background: $-main-bg;
   margin: 0;
   padding: 0;
-  font-family: "Montserrat", sans-serif;
-  font-family: "Source Sans Pro", sans-serif;
+  font-family: "Montserrat", sans-serif !important;
 }
 
 .j-c-c {
@@ -272,10 +271,10 @@ body {
   object-fit: cover;
   border-radius: 50%;
 }
-.cc_from {
-  input {
-    color: white !important;
-    background: #1e364e !important;
-    padding: 0.5rem 1rem;
-  }
-}
+// .cc_from {
+//   input {
+//     color: white !important;
+//     background: #1e364e !important;
+//     padding: 0.5rem 1rem;
+//   }
+// }

@@ -19,8 +19,6 @@ export default function ResetPassword() {
 
   const [ResetPassword, { error, loading, data }] = useMutation(RESET_PASSWORD);
 
-  const [buttonDisable, setButtonDisable] = React.useState(false);
-
   const navigate = useNavigate();
 
   const [message, setMessage] = React.useState({
@@ -33,16 +31,16 @@ export default function ResetPassword() {
     const data = new FormData(event.currentTarget);
 
     const password = data.get("password");
-    const ConfirmPassword = data.get("confirmPassword");
+    const confirmPassword = data.get("confirmPassword");
 
-    if (ConfirmPassword.length < 8 || password.length < 8) {
+    if (confirmPassword.length < 8 || password.length < 8) {
       setMessage({
         open: true,
         message: "Your Password should be more then 8",
       });
       return;
     }
-    if (ConfirmPassword !== password) {
+    if (confirmPassword !== password) {
       setMessage({
         open: true,
         message: `password don't same`,
@@ -51,18 +49,16 @@ export default function ResetPassword() {
     }
 
     try {
-      setButtonDisable(true);
-      ResetPassword({
+      await ResetPassword({
         variables: {
           resetToken,
           password,
         },
       });
     } catch (error) {
-      setButtonDisable(false);
       setMessage({
         open: true,
-        message: "Error try to refresh",
+        message: error.message,
       });
     }
   };
@@ -70,9 +66,15 @@ export default function ResetPassword() {
   React.useEffect(() => {
     if (data) {
       if (data.resetPassword.success) {
-        navigate("/user/login", {
-          replace: true,
+        setMessage({
+          open: true,
+          message: data.resetPassword.message,
         });
+        setTimeout(() => {
+          navigate("/user/login", {
+            replace: true,
+          });
+        }, 1500);
       } else {
         setMessage({
           open: true,
@@ -103,39 +105,37 @@ export default function ResetPassword() {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5" className="c-white">
-          Forget password
+          Reset password
         </Typography>
         <form onSubmit={handleSubmit} className="cc_from" sx={{ mt: 1 }}>
           <TextField
             margin="normal"
-            required
             fullWidth
             name="password"
             label="Password"
             type="password"
             id="password"
             autoComplete="current-password"
-            variant="standard"
+            variant="outlined"
           />
           <TextField
             margin="normal"
-            required
             fullWidth
             name="confirmPassword"
             label="confirm Password"
             type="password"
             id="confirmPassword"
             autoComplete="current-confirmPassword"
-            variant="standard"
+            variant="outlined"
           />
           <Button
-            disabled={buttonDisable}
+            disabled={loading}
             type="submit"
-            variant="outlined"
+            variant="contained"
             fullWidth
             sx={{ mt: 3, mb: 2 }}
           >
-            Reset password
+            Submit
           </Button>
         </form>
       </Box>
@@ -144,7 +144,6 @@ export default function ResetPassword() {
         setClose={setMessage}
         message={message.message}
       />
-      {loading && <BackDropLoading />}
     </Container>
   );
 }
