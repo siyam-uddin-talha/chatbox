@@ -2,11 +2,11 @@
   "name": "lx-chat-app",
   "version": "1.0.1",
   "description": "",
-  "main": "./../server.js",
+  "main": "backend/server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node ./../server.js",
-    "dev": "nodemon ./../server.js",
+    "start": "node ./backend/server.js",
+    "dev": "nodemon ./backend/server.js",
     "build": "npm install && npm install --prefix client && npm run build --prefix client"
   },
   "keywords": [],
